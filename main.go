@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/jlmbaka/extconv/extconv"
 )
@@ -13,7 +14,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	oldExt := os.Args[2]
-	newExt := os.Args[3]
+	oldExt := formatExt(os.Args[2])
+	newExt := formatExt(os.Args[3])
 	extconv.ChangeExts(files, oldExt, newExt)
+}
+
+func formatExt(ext string) string {
+	if !strings.HasPrefix(ext, ".") {
+		return "." + ext
+	}
+	return ext
 }
