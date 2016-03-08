@@ -8,13 +8,17 @@ import (
 	"strings"
 )
 
-func ChangeExts(files []os.FileInfo, matchExt, newExt string) {
+func ChangeExts(tgtDir string, files []os.FileInfo, matchExt, newExt string) {
 	for _, file := range files {
-		myFilePath := path.Join(os.Args[1], file.Name())
-		myFileExt := filepath.Ext(myFilePath)
-		if myFileExt == matchExt {
-			renameFile(myFilePath, myFileExt, newExt)
-		}
+		changeExt(tgtDir, file, matchExt, newExt)
+	}
+}
+
+func changeExt(tgtDir string, file os.FileInfo, matchExt, newExt string) {
+	tgtFilepath := path.Join(tgtDir, file.Name())
+	myFileExt := filepath.Ext(tgtFilepath)
+	if myFileExt == matchExt {
+		renameFile(tgtFilepath, myFileExt, newExt)
 	}
 }
 
